@@ -20,6 +20,7 @@ const logger = log.logger('Server');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+io.origins(process.env.NEOCHESS_WEB_URL);
 
 /* Configure cors */
 app.use(cors());
@@ -32,7 +33,7 @@ const routes = require('./routes');
 app.use(routes);
 
 /* Get port from .env */
-const port = process.env.NEOCHESS_SERVER_URL.split(':')[2];
+const port = process.env.NEOCHESS_SERVER_PORT;
 
 /* MongoDB instance */
 const mongo = new MongoClient(process.env.NEOCHESS_DB_URI, {
